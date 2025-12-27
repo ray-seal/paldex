@@ -29,6 +29,10 @@ export default function PalModal({ pal, onClose }) {
                         ))}
                     </ul>
                 </div>
+                <div style={styles.section}></div>
+                    <strong>Gives:</strong>
+                    <p>{pal.gives ?? "N/A"}</p>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 [
     { "id": 1, "name": "Lamball", "type": "Neutral", "work suitability": "Handiwork Lv.1, Transporting Lv.1, Farming Lv.1", "gives": "Wool" },
-    {"id": 2, "name": "Cattiva" },
+    {"id": 2, "name": "Cattiva", "type": "Neutral", "work suitability": "Handiwork Lv.1, Transporting Lv.1, Gathering Lv.1, Mining Lv.1"},
     { "id": 3, "name": "Chikipi" },
     { "id": 4, "name": "Lifmunk" },
     { "id": 5, "name": "Foxparks" },
