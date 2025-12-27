@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import pals from "./data/pals.json";
+import PalCard from "./components/PalCard";
 
 const STORAGE_KEY = "revealedPals";
 
 function fuzzyMatch(input, pals) {
     const normalized = input.toLowerCase();
     return pals.find((pal) =>
-    pal.name.toLowerCase().includes(nomalized)
+    pal.name.toLowerCase().includes(normalized)
 );
 }
 
 export default function App() {
     const [search, setSearch] = useState("");
-    const [revealedPals, setRevealedPals] = useState ([]);
+    const [revealedPals, setRevealedPals] = useState([]);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
@@ -54,7 +55,7 @@ export default function App() {
 
         const resetProgress = () => {
             setRevealedPals([]);
-            localStorage.removeItem("STORAGE_KEY");
+            localStorage.removeItem(STORAGE_KEY);
             setMessage("Progress reset.");
     };
 
