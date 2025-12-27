@@ -1,6 +1,14 @@
 export default function PalModal({ pal, onClose }) {
     if (!pal) return null;
 
+    const types = Array.isArray(pal.type) ? pal.type : pal.type ? [pal.type] : [];
+    const rawWork = pal.workSuitability ?? pal["work suitability"] ?? "";
+    const workList = Array.isArray(rawWork)
+        ? rawWork
+        : typeof rawWork === "string"
+        ? rawWork.split(/\s*,\s*/).filter(Boolean)
+        : [];
+
     return (
         <div style={styles.overlay} onClick={onClose}>
             <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -10,14 +18,14 @@ export default function PalModal({ pal, onClose }) {
 
                 <div style={styles.section}>
                     <strong>Type:</strong>
-                    <p>{pal.type.join(", ")}</p>
+                    <p>{types.join(", ")}</p>
                 </div>
 
                 <div style={styles.section}>
                     <strong>Work Suitability:</strong>
                     <ul>
-                        {pal.workSuitability.map((work) => (
-                            <li key={work}>{work}</li>
+                        {workList.map((w, i) => (
+                            <li key={i}>{w}</li>
                         ))}
                     </ul>
                 </div>

@@ -4,7 +4,6 @@ import PalCard from "./components/PalCard";
 import PalModal from "./components/PalModal";
 
 const STORAGE_KEY = "revealedPals";
-const [selectedPal, setSelectedPal] = useState(null);
 
 function fuzzyMatch(input, pals) {
     const normalized = input.toLowerCase();
@@ -14,6 +13,7 @@ function fuzzyMatch(input, pals) {
 }
 
 export default function App() {
+    const [selectedPal, setSelectedPal] = useState(null);
     const [search, setSearch] = useState("");
     const [revealedPals, setRevealedPals] = useState([]);
     const [message, setMessage] = useState("");
