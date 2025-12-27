@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import pals from "./data/pals.json";
 import PalCard from "./components/PalCard";
+import PalModal from "./components/PalModal";
 
 const STORAGE_KEY = "revealedPals";
+const [selectedPal, setSelectedPal] = useState(null);
 
 function fuzzyMatch(input, pals) {
     const normalized = input.toLowerCase();
@@ -92,8 +94,13 @@ export default function App() {
                     key={pal.id}
                     pal={pal}
                     revealed={revealedPals.includes(pal.name)}
+                    onClick={() => setSelectedPal(pal)}
                     />
                 ))}
+                <PalModal
+                pal={selectedPal}
+                onClose={() => setSelectedPal(null)}
+                />
              </div>
             </div>
     );
