@@ -1,4 +1,4 @@
-export default function PalModal({ pal, onClose }) {
+export default function PalModal({ pal, onClose, theme }) {
     if (!pal) return null;
 
     const types = Array.isArray(pal.type) ? pal.type : pal.type ? [pal.type] : [];
@@ -9,12 +9,19 @@ export default function PalModal({ pal, onClose }) {
         ? rawWork.split(/\s*,\s*/).filter(Boolean)
         : [];
 
+    const modalStyle = {
+        ...styles.modal,
+        backgroundColor: theme?.cardBg || "#fff",
+        color: theme?.text || "#000",
+        border: `3px solid ${theme?.border || "#ccc"}`,
+    };
+
     return (
         <div style={styles.overlay} onClick={onClose}>
-            <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-                <button onClick={onClose} style={styles.close}>x</button>
+            <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+                <button onClick={onClose} style={{ ...styles.close, color: theme?.text || "#000" }}>✕</button>
 
-                <h2>{pal.name}</h2>
+                <h2 style={{ color: theme?.text || "#000" }}>{pal.name}</h2>
 
                 <div style={styles.section}>
                     <strong>Type:</strong>
@@ -42,19 +49,19 @@ const styles = {
     overlay: {
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0, 0, 0, 0.6)',
+        background: 'rgba(0, 0, 0, 0.7)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1000,
     },
     modal: {
-        background: "#fff",
         padding: "1.5rem",
-        borderRadius: "10px",
+        borderRadius: "12px",
         width: "90%",
         maxWidth: "400px",
         position: "relative",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
     },
     close: {
         position: "absolute",
@@ -62,8 +69,9 @@ const styles = {
         right: "0.5rem",
         background: "transparent",
         border: "none",
-        fontSize: "1.2rem",
+        fontSize: "1.5rem",
         cursor: "pointer",
+        fontWeight: "bold",
     },
     image: {
         width: "120px",

@@ -1,0 +1,26 @@
+{
+  "name": "Pal-Dex - Palworld Companion",
+  "short_name": "Pal-Dex",
+  "description": "A fan-made companion App to be played alongside Palworld for keeping track of your Pals and seeing what is best suited to your farms needs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90e2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "utilities"],
+  "screenshots": []
+}
