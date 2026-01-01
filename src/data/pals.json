@@ -95,5 +95,19 @@
     { "id": 67, "name": "Digtoise", "type": "Ground", "work suitability": "Mining Lv.3" },
     { "id": 68, "name": "Tombat", "type": "Dark", "work suitability": "Transporting Lv.2, Gathering Lv.2, Mining Lv.2" },
     { "id": 69, "name": "Lovander", "type": "Neutral", "work suitability": "Handiwork Lv.2, Medicine Lv.2, Transporting Lv.2, Mining Lv.1" },
-    { "id": 70, "name": "Flambelle", "type": "Fire", "work suitability": "Kindling Lv.1, Handiwork Lv.1, Transporting Lv.1, Farming Lv.1", "gives": "Flame Organ"}
+    { "id": 70, "name": "Flambelle", "type": "Fire", "work suitability": "Kindling Lv.1, Handiwork Lv.1, Transporting Lv.1, Farming Lv.1", "gives": "Flame Organ"},
+    { "id": 71, "name": "Vanwyrm", "type": "Fire, Dark", "work suitability": "Kindling Lv.1, Transporting Lv.3" },
+    { "id": 71.1, "name": "Vanwyrm Cryst", "type": "Ice, Dark", "work suitability": "Cooling Lv.2, Transporting Lv.3" },
+    { "id": 72, "name": "Bushi", "type": "Fire", "work suitability": "Kindling Lv.2, Handiwork Lv.1, Lumbering Lv.3, Transporting Lv.2, Gathering Lv.1" },
+    { "id": 72.1, "name": "Bushi Noct", "type": "Fire, Dark", "work suitability": "Kindling Lv.2, Handiwork Lv.1, Lumbering Lv.3, Transporting Lv.2, Gathering Lv.1" },
+    { "id": 73, "name": "Beakon", "type": "Electric", "work suitability": "Transporting Lv.3, Electricity Lv.2, Gathering Lv.1" },
+    { "id": 74, "name": "Ragnahawk", "type": "Fire", "work suitability": "Kindling Lv.3, Transporting Lv.2" },
+    { "id": 75, "name": "Katress", "type": "Dark", "work suitability": "Handiwork Lv.2, Medicine Lv.2, TransportingLv.2" },
+    { "id": 75.1, "name": "Katress Ignis", "type": "Fire, Dark", "work suitability": "Kindling Lv.2, Handiwork Lv.2, Medicine Lv.2, Transporting Lv.2" },
+    { "id": 76, "name": "Wixen", "type": "Fire", "work suitability": "Kindling Lv.2, Handiwork Lv.3, Transporting Lv.2" },
+    { "id": 76.1, "name": "Wixen Noct", "type": "Fire, Dark", "work suitability": "Kindling Lv.2, Handiwork Lv.3, Transporting Lv.2" },
+    { "id": 77, "name": "Verdash", "type": "Grass", "work suitability": "Planting Lv.2, Handiwork Lv.3, Lumbering Lv.2, Transporting Lv.2, Gathering Lv.3" },
+    { "id": 78, "name": "Vaelet", "type": "Grass", "work suitability": "Planting Lv.2, Handiwork Lv.3, Lumbering Lv.2, Transporting Lv.2, Gathering Lv.3" },
+    { "id": 79, "name": "Sibelyx", "type": "Ice", "work suitability": "Medicine Lv.2, Cooling Lv.2, Farming Lv.1", "gives": "High Quality Cloth" },
+    { "id": 80, "name": "Elphidran", "type": "Dragon", "work suitability": "Lumbering Lv.2" }
 ]
