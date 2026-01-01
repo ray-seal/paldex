@@ -146,5 +146,19 @@
     { "id": 98, "name": "Astegon", "type": "Dark, Dragon", "work suitability": "Handiwork Lv.1, Mining Lv.4" },
     { "id": 99, "name": "Menasting", "type": "Ground, Dark", "work suitability": "Lumbering Lv.2, Mining Lv.3" },
     { "id": 99.1, "name": "Menasting Terra", "type": "Ground", "work suitability": "Lumbering Lv.2, Mining Lv.3" },
-    { "id": 100, "name": "Anubis", "type": "Ground", "work suitability": "Handiwork Lv.4, Transporting Lv.2, Mining Lv.3" }
+    { "id": 100, "name": "Anubis", "type": "Ground", "work suitability": "Handiwork Lv.4, Transporting Lv.2, Mining Lv.3" },
+    { "id": 101, "name": "Jormuntide", "type": "Water, Dragon", "work suitability": "Watering Lv.4" },
+    { "id": 101.1, "name": "Jormuntide Ignis", "type": "Fire, Dragon", "work suitability": "Kindling Lv.4" },
+    { "id": 102, "name": "Suzaku", "type": "Fire", "work suitability": "Kindling Lv.3" },
+    { "id": 102.1, "name": "Suzaku Aqua", "type": "Water", "work suitability": "Watering Lv.3" },
+    { "id": 103, "name": "Grizzbolt", "type": "Electric", "work suitability": "Handiwork Lv.2, Lumbering Lv.2, Transporting Lv.3, Electricity Lv.3" },
+    { "id": 104, "name": "Lyleen", "type": "Grass", "work suitability": "Planting Lv.4, Handiwork Lv.3, Medicine Lv.3, Gathering Lv.2" },
+    { "id": 104.1, "name": "Lyleen Noct", "type": "Dark", "work suitability": "Handiwork Lv.3, Medicine Lv.3, Gathering Lv.2" },
+    { "id": 105, "name": "Faleris", "type": "Fire", "work suitability": "Kindling Lv.3, Transporting Lv3" },
+    { "id": 105.1, "name": "Faleris Aqua", "type": "Water", "work suitability": "Transporting Lv3, Watering Lv.4" },
+    { "id": 106, "name": "Orserk", "type": "Electric, Dragon", "work suitability": "Handiwork Lv.2, Transporting Lv.3, Electricity Lv.4" },
+    { "id": 107, "name": "Shadowbeak", "type": "Dark", "work suitability": "Gathering Lv.1" },
+    { "id": 108, "name": "Paladius", "type": "Neutral", "work suitability": "Lumbering Lv.2, Mining Lv.2" },
+    { "id": 109, "name": "Necromus", "type": "Dark", "work suitability": "Lumbering Lv.2, Mining Lv.2" },
+    { "id": 110, "name": "Frostallion", "type": "Ice", "work suitability": "Cooling Lv.4" }
 ]
