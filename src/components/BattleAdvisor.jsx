@@ -16,90 +16,301 @@ const TYPE_EFFECTIVENESS = {
 
 // Boss data with types, recommended levels, and locations
 const BOSS_DATA = {
-    "Zoe and Grizzbolt": { 
+    // Tower Bosses
+    "Zoe & Grizzbolt": { 
         types: ["Electric", "Neutral"], 
         level: 15,
         location: "Rayne Syndicate Tower",
-        description: "First tower boss - Electric/Neutral type"
+        region: "Bamboo Groves",
+        category: "Tower Boss"
     },
-    "Lily and Lyleen": {
+    "Lily & Lyleen": {
         types: ["Grass"],
         level: 23,
         location: "Free Pal Alliance Tower",
-        description: "Second tower boss - Pure Grass type"
+        region: "Windswept Hills",
+        category: "Tower Boss"
     },
-    "Axel and Orserk": {
+    "Axel & Orserk": {
         types: ["Dragon", "Electric"],
         level: 31,
         location: "Brothers of the Eternal Pyre Tower",
-        description: "Third tower boss - Dragon/Electric hybrid"
+        region: "Desert",
+        category: "Tower Boss"
     },
-    "Marcus and Faleris": {
+    "Marcus & Faleris": {
         types: ["Fire"],
         level: 38,
         location: "PAL Genetic Research Unit Tower",
-        description: "Fourth tower boss - Pure Fire type"
+        region: "Volcanic Region",
+        category: "Tower Boss"
     },
-    "Victor and Shadowbeak": {
+    "Victor & Shadowbeak": {
         types: ["Dark"],
         level: 50,
         location: "Rayne Syndicate Tower (Final)",
-        description: "Final tower boss - Pure Dark type"
+        region: "Northern Snowy Mountains",
+        category: "Tower Boss"
     },
-    "Mammorest": {
-        types: ["Grass"],
-        level: 13,
-        location: "World Boss",
-        description: "Grass type world boss"
+    
+    // Alpha Pals - Starting Area & Grassy Regions
+    "Chillet (Alpha)": {
+        types: ["Ice", "Dragon"],
+        level: 11,
+        location: "Chillet Habitat",
+        region: "Eastern Grassy Area",
+        category: "Alpha Pal"
     },
-    "Kingpaca": {
+    "Kingpaca (Alpha)": {
         types: ["Neutral"],
-        level: 18,
-        location: "World Boss",
-        description: "Neutral type alpha boss"
-    },
-    "Bushi": {
-        types: ["Fire"],
         level: 23,
-        location: "World Boss",
-        description: "Fire type world boss"
+        location: "Alpha Kingpaca Territory",
+        region: "Eastern Plains",
+        category: "Alpha Pal"
     },
-    "Wumpo": {
-        types: ["Ice"],
-        level: 28,
-        location: "World Boss",
-        description: "Ice type world boss"
+    "Mammorest (Alpha)": {
+        types: ["Grass"],
+        level: 38,
+        location: "Alpha Boss Arena",
+        region: "Grassy Behemoth Hills",
+        category: "Alpha Pal"
     },
-    "Blazamut": {
+    "Mossanda (Alpha)": {
+        types: ["Grass"],
+        level: 38,
+        location: "Boss Arena",
+        region: "Verdant Brook",
+        category: "Alpha Pal"
+    },
+    "Elizabee (Alpha)": {
+        types: ["Grass"],
+        level: 34,
+        location: "Elizabee Den",
+        region: "Western Grassy Plains",
+        category: "Alpha Pal"
+    },
+    "Warsect (Alpha)": {
+        types: ["Grass", "Ground"],
+        level: 35,
+        location: "Warsect Territory",
+        region: "Marsh Island",
+        category: "Alpha Pal"
+    },
+    "Lunaris (Alpha)": {
+        types: ["Neutral"],
+        level: 32,
+        location: "Moonlit Ruins",
+        region: "Ancient Ruins",
+        category: "Alpha Pal"
+    },
+    "Verdash (Alpha)": {
+        types: ["Grass"],
+        level: 35,
+        location: "Forest Arena",
+        region: "Dense Forest",
+        category: "Alpha Pal"
+    },
+    
+    // Alpha Pals - Desert Region
+    "Anubis (Alpha)": {
+        types: ["Ground"],
+        level: 47,
+        location: "Desert Ruins",
+        region: "Dry Desert",
+        category: "Alpha Pal"
+    },
+    "Blazamut (Alpha)": {
         types: ["Fire"],
         level: 49,
-        location: "World Boss",
-        description: "High-level Fire type"
+        location: "Blazamut Territory",
+        region: "Volcanic Caldera",
+        category: "Alpha Pal"
     },
-    "Frostallion": {
+    "Azurobe (Alpha)": {
+        types: ["Dragon"],
+        level: 41,
+        location: "Dragon Territory",
+        region: "Desert Canyon",
+        category: "Alpha Pal"
+    },
+    "Menasting (Alpha)": {
+        types: ["Dark", "Ground"],
+        level: 44,
+        region: "Deep Desert",
+        location: "Menasting Territory",
+        category: "Alpha Pal"
+    },
+    
+    // Alpha Pals - Volcanic Region
+    "Suzaku (Alpha)": {
+        types: ["Fire"],
+        level: 45,
+        location: "Volcanic Peak",
+        region: "Mount Obsidian",
+        category: "Alpha Pal"
+    },
+    "Jormuntide (Alpha)": {
+        types: ["Water", "Dragon"],
+        level: 45,
+        location: "Lake Territory",
+        region: "Sealed Realm of the Thunder Dragon",
+        category: "Alpha Pal"
+    },
+    "Relaxaurus (Alpha)": {
+        types: ["Dragon", "Water"],
+        level: 43,
+        location: "Coastal Territory",
+        region: "Northeastern Beach",
+        category: "Alpha Pal"
+    },
+    "Penking (Alpha)": {
+        types: ["Water", "Ice"],
+        level: 15,
+        location: "Frozen Lake",
+        region: "Icy Weasel Hill",
+        category: "Alpha Pal"
+    },
+    
+    // Alpha Pals - Snow/Ice Region
+    "Frostallion (Alpha)": {
         types: ["Ice"],
         level: 50,
-        location: "Legendary",
-        description: "Ice legendary"
+        location: "Frozen Tundra",
+        region: "Northern Snowy Mountains",
+        category: "Alpha Pal"
     },
-    "Jetragon": {
+    "Sibelyx (Alpha)": {
+        types: ["Ice"],
+        level: 48,
+        location: "Icy Territory",
+        region: "Land of Absolute Zero",
+        category: "Alpha Pal"
+    },
+    "Cryolinx (Alpha)": {
+        types: ["Ice", "Dragon"],
+        level: 48,
+        location: "Frozen Arena",
+        region: "Frozen Mountain Pass",
+        category: "Alpha Pal"
+    },
+    "Reptyro (Alpha)": {
+        types: ["Fire", "Ground"],
+        level: 41,
+        location: "Rocky Territory",
+        region: "Scorching Mineshaft",
+        category: "Alpha Pal"
+    },
+    
+    // Alpha Pals - Island Regions
+    "Quivern (Alpha)": {
+        types: ["Dragon"],
+        level: 33,
+        location: "Island Peak",
+        region: "Sealed Realm of the Winged Tyrant",
+        category: "Alpha Pal"
+    },
+    "Elphidran (Alpha)": {
+        types: ["Dragon"],
+        level: 27,
+        location: "Dragon Territory",
+        region: "Twilight Dunes",
+        category: "Alpha Pal"
+    },
+    "Wumpo (Alpha)": {
+        types: ["Ice"],
+        level: 38,
+        location: "Ice Arena",
+        region: "Hypocrite Hill",
+        category: "Alpha Pal"
+    },
+    "Bushi (Alpha)": {
+        types: ["Fire"],
+        level: 23,
+        location: "Fire Territory",
+        region: "Sealed Realm of the Swordmaster",
+        category: "Alpha Pal"
+    },
+    
+    // Alpha Pals - Dark/Cave Regions
+    "Astegon (Alpha)": {
+        types: ["Dark", "Dragon"],
+        level: 48,
+        location: "Dark Cavern",
+        region: "Destroyed Mineshaft",
+        category: "Alpha Pal"
+    },
+    "Grizzbolt (Alpha)": {
+        types: ["Electric"],
+        level: 29,
+        location: "Electric Territory",
+        region: "Sealed Realm of the Guardian",
+        category: "Alpha Pal"
+    },
+    "Lyleen (Alpha)": {
+        types: ["Grass"],
+        level: 32,
+        location: "Flower Field",
+        region: "Moonless Shore",
+        category: "Alpha Pal"
+    },
+    "Beakon (Alpha)": {
+        types: ["Electric"],
+        level: 43,
+        location: "Electric Peak",
+        region: "Thunder Mountain",
+        category: "Alpha Pal"
+    },
+    
+    // Legendary/Raid Pals
+    "Jetragon (Legendary)": {
         types: ["Dragon"],
         level: 50,
-        location: "Legendary",
-        description: "Dragon legendary"
+        location: "Sky High Mountain Peak",
+        region: "Northeastern Mountains",
+        category: "Legendary"
     },
-    "Necromus": {
+    "Necromus (Legendary)": {
         types: ["Dark"],
         level: 50,
-        location: "Legendary",
-        description: "Dark legendary"
+        location: "Dark Altar",
+        region: "Dessicated Desert",
+        category: "Legendary"
     },
-    "Paladius": {
+    "Paladius (Legendary)": {
         types: ["Neutral"],
         level: 50,
-        location: "Legendary",
-        description: "Neutral legendary"
-    }
+        location: "Sacred Mountain",
+        region: "Iceberg Mineshaft",
+        category: "Legendary"
+    },
+    "Frostallion Noct (Legendary)": {
+        types: ["Dark"],
+        level: 50,
+        location: "Dark Frozen Peak",
+        region: "Northern Mountains",
+        category: "Legendary"
+    },
+    "Shadowbeak (Legendary)": {
+        types: ["Dark"],
+        level: 47,
+        location: "Shadow Realm",
+        region: "Sealed Realm of the Invincible",
+        category: "Legendary"
+    },
+    "Bellanoir (Raid Boss)": {
+        types: ["Dark"],
+        level: 50,
+        location: "Raid Portal",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
+    "Bellanoir Libero (Raid Boss)": {
+        types: ["Dark"],
+        level: 60,
+        location: "Raid Portal",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
 };
 
 export default function BattleAdvisor({ allPals, revealedPals, theme }) {
@@ -381,25 +592,61 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
                         style={styles.select}
                     >
                         <option value="">-- Choose a Boss --</option>
-                        <optgroup label="Tower Bosses">
-                            <option value="Zoe and Grizzbolt">Zoe and Grizzbolt (Lv.15)</option>
-                            <option value="Lily and Lyleen">Lily and Lyleen (Lv.23)</option>
-                            <option value="Axel and Orserk">Axel and Orserk (Lv.31)</option>
-                            <option value="Marcus and Faleris">Marcus and Faleris (Lv.38)</option>
-                            <option value="Victor and Shadowbeak">Victor and Shadowbeak (Lv.50)</option>
+                        <optgroup label="🏰 Tower Bosses">
+                            <option value="Zoe & Grizzbolt">Zoe & Grizzbolt (Lv.15) - Bamboo Groves</option>
+                            <option value="Lily & Lyleen">Lily & Lyleen (Lv.23) - Windswept Hills</option>
+                            <option value="Axel & Orserk">Axel & Orserk (Lv.31) - Desert</option>
+                            <option value="Marcus & Faleris">Marcus & Faleris (Lv.38) - Volcanic Region</option>
+                            <option value="Victor & Shadowbeak">Victor & Shadowbeak (Lv.50) - Northern Snowy Mountains</option>
                         </optgroup>
-                        <optgroup label="World Bosses">
-                            <option value="Mammorest">Mammorest (Lv.13)</option>
-                            <option value="Kingpaca">Kingpaca (Lv.18)</option>
-                            <option value="Bushi">Bushi (Lv.23)</option>
-                            <option value="Wumpo">Wumpo (Lv.28)</option>
-                            <option value="Blazamut">Blazamut (Lv.49)</option>
+                        <optgroup label="🌿 Alpha Pals - Grassy Regions (Lv.11-38)">
+                            <option value="Chillet (Alpha)">Chillet (Lv.11) - Eastern Grassy Area</option>
+                            <option value="Kingpaca (Alpha)">Kingpaca (Lv.23) - Eastern Plains</option>
+                            <option value="Lunaris (Alpha)">Lunaris (Lv.32) - Ancient Ruins</option>
+                            <option value="Elizabee (Alpha)">Elizabee (Lv.34) - Western Grassy Plains</option>
+                            <option value="Warsect (Alpha)">Warsect (Lv.35) - Marsh Island</option>
+                            <option value="Verdash (Alpha)">Verdash (Lv.35) - Dense Forest</option>
+                            <option value="Mammorest (Alpha)">Mammorest (Lv.38) - Grassy Behemoth Hills</option>
+                            <option value="Mossanda (Alpha)">Mossanda (Lv.38) - Verdant Brook</option>
                         </optgroup>
-                        <optgroup label="Legendary Pals">
-                            <option value="Frostallion">Frostallion (Lv.50)</option>
-                            <option value="Jetragon">Jetragon (Lv.50)</option>
-                            <option value="Necromus">Necromus (Lv.50)</option>
-                            <option value="Paladius">Paladius (Lv.50)</option>
+                        <optgroup label="🏜️ Alpha Pals - Desert Region (Lv.41-49)">
+                            <option value="Azurobe (Alpha)">Azurobe (Lv.41) - Desert Canyon</option>
+                            <option value="Menasting (Alpha)">Menasting (Lv.44) - Deep Desert</option>
+                            <option value="Anubis (Alpha)">Anubis (Lv.47) - Dry Desert</option>
+                            <option value="Blazamut (Alpha)">Blazamut (Lv.49) - Volcanic Caldera</option>
+                        </optgroup>
+                        <optgroup label="🔥 Alpha Pals - Volcanic/Water Regions (Lv.15-45)">
+                            <option value="Penking (Alpha)">Penking (Lv.15) - Icy Weasel Hill</option>
+                            <option value="Bushi (Alpha)">Bushi (Lv.23) - Sealed Realm of the Swordmaster</option>
+                            <option value="Elphidran (Alpha)">Elphidran (Lv.27) - Twilight Dunes</option>
+                            <option value="Lyleen (Alpha)">Lyleen (Lv.32) - Moonless Shore</option>
+                            <option value="Quivern (Alpha)">Quivern (Lv.33) - Sealed Realm of the Winged Tyrant</option>
+                            <option value="Reptyro (Alpha)">Reptyro (Lv.41) - Scorching Mineshaft</option>
+                            <option value="Relaxaurus (Alpha)">Relaxaurus (Lv.43) - Northeastern Beach</option>
+                            <option value="Jormuntide (Alpha)">Jormuntide (Lv.45) - Sealed Realm of the Thunder Dragon</option>
+                            <option value="Suzaku (Alpha)">Suzaku (Lv.45) - Mount Obsidian</option>
+                        </optgroup>
+                        <optgroup label="❄️ Alpha Pals - Ice/Snow Region (Lv.38-50)">
+                            <option value="Wumpo (Alpha)">Wumpo (Lv.38) - Hypocrite Hill</option>
+                            <option value="Cryolinx (Alpha)">Cryolinx (Lv.48) - Frozen Mountain Pass</option>
+                            <option value="Sibelyx (Alpha)">Sibelyx (Lv.48) - Land of Absolute Zero</option>
+                            <option value="Frostallion (Alpha)">Frostallion (Lv.50) - Northern Snowy Mountains</option>
+                        </optgroup>
+                        <optgroup label="⚡ Alpha Pals - Electric/Dark Regions (Lv.29-48)">
+                            <option value="Grizzbolt (Alpha)">Grizzbolt (Lv.29) - Sealed Realm of the Guardian</option>
+                            <option value="Beakon (Alpha)">Beakon (Lv.43) - Thunder Mountain</option>
+                            <option value="Astegon (Alpha)">Astegon (Lv.48) - Destroyed Mineshaft</option>
+                        </optgroup>
+                        <optgroup label="✨ Legendary Pals (Lv.47-50)">
+                            <option value="Shadowbeak (Legendary)">Shadowbeak (Lv.47) - Sealed Realm of the Invincible</option>
+                            <option value="Jetragon (Legendary)">Jetragon (Lv.50) - Northeastern Mountains</option>
+                            <option value="Necromus (Legendary)">Necromus (Lv.50) - Dessicated Desert</option>
+                            <option value="Paladius (Legendary)">Paladius (Lv.50) - Iceberg Mineshaft</option>
+                            <option value="Frostallion Noct (Legendary)">Frostallion Noct (Lv.50) - Northern Mountains</option>
+                        </optgroup>
+                        <optgroup label="👹 Raid Bosses (Lv.50-60)">
+                            <option value="Bellanoir (Raid Boss)">Bellanoir (Lv.50) - Summoned via Slab</option>
+                            <option value="Bellanoir Libero (Raid Boss)">Bellanoir Libero (Lv.60) - Summoned via Slab</option>
                         </optgroup>
                     </select>
 
@@ -408,6 +655,10 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Boss:</span>
                                 <span>{selectedBoss}</span>
+                            </div>
+                            <div style={styles.bossInfoRow}>
+                                <span style={styles.label}>Category:</span>
+                                <span>{BOSS_DATA[selectedBoss].category}</span>
                             </div>
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Level:</span>
@@ -420,6 +671,10 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
                                         <span key={type} style={styles.typeChip}>{type}</span>
                                     ))}
                                 </span>
+                            </div>
+                            <div style={styles.bossInfoRow}>
+                                <span style={styles.label}>Region:</span>
+                                <span>{BOSS_DATA[selectedBoss].region}</span>
                             </div>
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Location:</span>
