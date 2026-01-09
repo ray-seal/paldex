@@ -3,6 +3,7 @@ import pals from "./data/pals.json";
 import PalCard from "./components/PalCard";
 import PalModal from "./components/PalModal";
 import BaseAdvisor from "./components/BaseAdvisor";
+import BattleAdvisor from "./components/BattleAdvisor";
 
 const STORAGE_KEY = "revealedPals";
 const PALS_DATA_KEY = "customPals";
@@ -224,6 +225,15 @@ export default function App() {
                 >
                     Base Advisor
                 </button>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "battle" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("battle")}
+                >
+                    Battle Advisor
+                </button>
             </div>
 
             {activeTab === "pokedex" ? (
@@ -365,8 +375,14 @@ export default function App() {
                 />
              </div>
                 </>
-            ) : (
+            ) : activeTab === "advisor" ? (
                 <BaseAdvisor 
+                    allPals={allPals}
+                    revealedPals={revealedPals}
+                    theme={currentTheme}
+                />
+            ) : (
+                <BattleAdvisor 
                     allPals={allPals}
                     revealedPals={revealedPals}
                     theme={currentTheme}
