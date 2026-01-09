@@ -419,6 +419,14 @@ export default function App() {
                 pal={selectedPal}
                 onClose={() => setSelectedPal(null)}
                 theme={currentTheme}
+                revealed={selectedPal ? revealedPals.includes(selectedPal.name) : false}
+                onAddToCollection={() => {
+                    if (selectedPal && !revealedPals.includes(selectedPal.name)) {
+                        setRevealedPals([...revealedPals, selectedPal.name]);
+                        setMessage(`Added ${selectedPal.name} to collection!`);
+                        setSelectedPal(null);
+                    }
+                }}
                 />
              </div>
                 </>

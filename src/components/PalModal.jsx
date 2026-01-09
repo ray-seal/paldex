@@ -1,4 +1,4 @@
-export default function PalModal({ pal, onClose, theme }) {
+export default function PalModal({ pal, onClose, theme, revealed, onAddToCollection }) {
     if (!pal) return null;
 
     const types = Array.isArray(pal.type) ? pal.type : pal.type ? [pal.type] : [];
@@ -21,7 +21,16 @@ export default function PalModal({ pal, onClose, theme }) {
             <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
                 <button onClick={onClose} style={{ ...styles.close, color: theme?.text || "#000" }}>✕</button>
 
-                <h2 style={{ color: theme?.text || "#000" }}>{pal.name}</h2>
+                <h2 style={{ color: theme?.text || "#000" }}>
+                    {pal.name}
+                    {!revealed && <span style={styles.badge}> 🔒</span>}
+                </h2>
+
+                {!revealed && (
+                    <div style={styles.collectionStatus}>
+                        <span style={styles.notCollected}>Not in Collection</span>
+                    </div>
+                )}
 
                 <div style={styles.section}>
                     <strong>Type:</strong>
@@ -40,6 +49,15 @@ export default function PalModal({ pal, onClose, theme }) {
                     <strong>Gives:</strong>
                     <p>{pal.gives ?? "N/A"}</p>
                 </div>
+
+                {!revealed && (
+                    <button 
+                        onClick={onAddToCollection} 
+                        style={styles.addButton}
+                    >
+                        Add to Collection
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -80,5 +98,31 @@ const styles = {
     },
     section: {
         marginTop: "1rem",
+    },
+    badge: {
+        fontSize: "1rem",
+        marginLeft: "0.5rem",
+    },
+    collectionStatus: {
+        textAlign: "center",
+        marginBottom: "1rem",
+    },
+    notCollected: {
+        color: "#dc3545",
+        fontWeight: "bold",
+        fontSize: "0.9rem",
+    },
+    addButton: {
+        width: "100%",
+        marginTop: "1rem",
+        padding: "0.75rem",
+        backgroundColor: "#28a745",
+        color: "white",
+        border: "none",
+        borderRadius: "8px",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        cursor: "pointer",
+        transition: "background-color 0.2s ease",
     },
 };
