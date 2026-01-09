@@ -467,6 +467,8 @@ const styles = {
         marginBottom: "1.5rem",
         justifyContent: "center",
         borderBottom: "2px solid #ccc",
+        flexWrap: "wrap",
+        padding: "0.5rem",
     },
     tab: {
         padding: "0.75rem 1.5rem",
@@ -477,6 +479,7 @@ const styles = {
         cursor: "pointer",
         transition: "all 0.2s ease",
         backgroundColor: "transparent",
+        whiteSpace: "nowrap",
     },
     activeTab: {
         borderBottomColor: "#007bff",
