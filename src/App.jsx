@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import pals from "./data/pals.json";
 import PalCard from "./components/PalCard";
 import PalModal from "./components/PalModal";
+import BaseAdvisor from "./components/BaseAdvisor";
 
 const STORAGE_KEY = "revealedPals";
 const PALS_DATA_KEY = "customPals";
 const THEME_KEY = "selectedTheme";
+const ACTIVE_TAB_KEY = "activeTab";
 
 // Theme colors based on types
 const themes = {
@@ -41,6 +43,7 @@ export default function App() {
     const [newPalData, setNewPalData] = useState({ name: "", type: "", workSuitability: "", gives: "" });
     const [deferredPrompt, setDeferredPrompt] = useState(null);
     const [showInstallButton, setShowInstallButton] = useState(false);
+    const [activeTab, setActiveTab] = useState("pokedex");
 
     useEffect(() => {
         const handler = (e) => {
@@ -82,6 +85,11 @@ export default function App() {
         if (storedTheme) {
             setTheme(storedTheme);
         }
+
+        const storedTab = localStorage.getItem(ACTIVE_TAB_KEY);
+        if (storedTab) {
+            setActiveTab(storedTab);
+        }
     }, []);
 
     useEffect(() => {
@@ -91,6 +99,10 @@ export default function App() {
     useEffect(() => {
         localStorage.setItem(THEME_KEY, theme);
     }, [theme]);
+
+    useEffect(() => {
+        localStorage.setItem(ACTIVE_TAB_KEY, activeTab);
+    }, [activeTab]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -192,7 +204,31 @@ export default function App() {
         <div style={{ ...styles.container, backgroundColor: currentTheme.bg, color: currentTheme.text }}>
             <h1 style={styles.title}>Pal-Dex</h1>
 
-            <div style={styles.controlsRow}>
+            {/* Navigation Tabs */}
+            <div style={styles.tabContainer}>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "pokedex" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("pokedex")}
+                >
+                    Pal-Dex
+                </button>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "advisor" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("advisor")}
+                >
+                    Base Advisor
+                </button>
+            </div>
+
+            {activeTab === "pokedex" ? (
+                <>
+                    <div style={styles.controlsRow}>
                 <label style={styles.label}>
                     Theme:
                     <select 
@@ -328,6 +364,14 @@ export default function App() {
                 theme={currentTheme}
                 />
              </div>
+                </>
+            ) : (
+                <BaseAdvisor 
+                    allPals={allPals}
+                    revealedPals={revealedPals}
+                    theme={currentTheme}
+                />
+            )}
             </div>
     );
 }
@@ -345,6 +389,30 @@ const styles = {
     title: {
         textAlign: "center",
         marginBottom: "1rem",
+    },
+    tabContainer: {
+        display: "flex",
+        gap: "0.5rem",
+        marginBottom: "1.5rem",
+        justifyContent: "center",
+        borderBottom: "2px solid #ccc",
+    },
+    tab: {
+        padding: "0.75rem 1.5rem",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        border: "none",
+        borderBottom: "3px solid transparent",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+        backgroundColor: "transparent",
+    },
+    activeTab: {
+        borderBottomColor: "#007bff",
+        color: "#007bff",
+    },
+    inactiveTab: {
+        color: "#666",
     },
     controlsRow: {
         display: "flex",
