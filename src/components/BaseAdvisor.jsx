@@ -2,24 +2,62 @@ import { useState, useEffect } from "react";
 
 // Base structures and their required work suitabilities
 const BASE_STRUCTURES = {
+    // Plantations & Farms
     "Wheat Plantation": { workTypes: ["Planting", "Watering", "Gathering"], priority: 1 },
     "Berry Plantation": { workTypes: ["Planting", "Watering", "Gathering"], priority: 1 },
     "Tomato Plantation": { workTypes: ["Planting", "Watering", "Gathering"], priority: 1 },
     "Lettuce Plantation": { workTypes: ["Planting", "Watering", "Gathering"], priority: 1 },
-    "Ranch": { workTypes: ["Farming"], priority: 2 },
+    "Potato Plantation": { workTypes: ["Planting", "Watering", "Gathering"], priority: 1 },
+    "Ranch": { workTypes: ["Farming"], priority: 1 },
+    "Chicken Ranch": { workTypes: ["Farming"], priority: 1 },
+    
+    // Resource Gathering Sites
     "Logging Site": { workTypes: ["Lumbering"], priority: 2 },
     "Stone Pit": { workTypes: ["Mining"], priority: 2 },
     "Ore Mining Site": { workTypes: ["Mining"], priority: 2 },
-    "Sphere Assembly Line": { workTypes: ["Handiwork"], priority: 3 },
+    "Coal Mining Site": { workTypes: ["Mining"], priority: 2 },
+    "Sulfur Mining Site": { workTypes: ["Mining"], priority: 2 },
+    
+    // Crafting Workbenches
+    "Primitive Workbench": { workTypes: ["Handiwork"], priority: 3 },
     "Weapon Workbench": { workTypes: ["Handiwork"], priority: 3 },
+    "Pal Gear Workbench": { workTypes: ["Handiwork"], priority: 3 },
     "High Quality Workbench": { workTypes: ["Handiwork"], priority: 3 },
-    "Crusher": { workTypes: ["Handiwork", "Transporting"], priority: 3 },
-    "Furnace": { workTypes: ["Kindling"], priority: 3 },
-    "Electric Kitchen": { workTypes: ["Kindling"], priority: 3 },
+    "Sphere Workbench": { workTypes: ["Handiwork"], priority: 3 },
+    "Primitive Sphere Assembly": { workTypes: ["Handiwork"], priority: 3 },
+    "Sphere Assembly Line": { workTypes: ["Handiwork"], priority: 3 },
+    "Advanced Sphere Assembly": { workTypes: ["Handiwork"], priority: 3 },
+    
+    // Processing Structures
+    "Crusher": { workTypes: ["Handiwork", "Transporting"], priority: 2 },
+    "Mill": { workTypes: ["Watering"], priority: 2 },
+    "Furnace": { workTypes: ["Kindling"], priority: 2 },
+    "Electric Furnace": { workTypes: ["Kindling"], priority: 2 },
+    "Improved Furnace": { workTypes: ["Kindling"], priority: 2 },
+    
+    // Cooking & Food
+    "Cooking Pot": { workTypes: ["Kindling"], priority: 2 },
+    "Electric Kitchen": { workTypes: ["Kindling"], priority: 2 },
+    "Brewery": { workTypes: ["Transporting"], priority: 3 },
+    
+    // Medicine
+    "Medieval Medicine Workbench": { workTypes: ["Medicine"], priority: 2 },
+    "High Quality Medicine Workbench": { workTypes: ["Medicine"], priority: 2 },
+    
+    // Climate Control
     "Cooler Box": { workTypes: ["Cooling"], priority: 3 },
+    "Refrigerator": { workTypes: ["Cooling"], priority: 3 },
     "Electric Heater": { workTypes: ["Kindling"], priority: 3 },
-    "Power Generator": { workTypes: ["Electricity"], priority: 3 },
-    "Medicine Workbench": { workTypes: ["Medicine"], priority: 2 },
+    "Heater": { workTypes: ["Kindling"], priority: 3 },
+    "Hot Spring": { workTypes: ["Watering"], priority: 3 },
+    
+    // Power & Utilities
+    "Power Generator": { workTypes: ["Electricity"], priority: 2 },
+    "Feed Box": { workTypes: [], priority: 3 },
+    "Monitoring Stand": { workTypes: [], priority: 3 },
+    "Incubator": { workTypes: [], priority: 3 },
+    "Breeding Farm": { workTypes: [], priority: 3 },
+    "Pal Bed": { workTypes: [], priority: 3 },
 };
 
 // Base level to max pals mapping
@@ -76,6 +114,10 @@ export default function BaseAdvisor({ allPals, revealedPals, theme }) {
 
         // Aggregate required work types with priorities
         const requiredWork = {};
+        const hasNoWorkStructures = selectedStructures.some(structure => 
+            BASE_STRUCTURES[structure].workTypes.length === 0
+        );
+        
         selectedStructures.forEach(structure => {
             const structureInfo = BASE_STRUCTURES[structure];
             structureInfo.workTypes.forEach(workType => {
@@ -138,7 +180,8 @@ export default function BaseAdvisor({ allPals, revealedPals, theme }) {
         setRecommendations({
             team: topPals,
             coverage: workCoverage,
-            requiredWork
+            requiredWork,
+            hasNoWorkStructures
         });
     };
 
@@ -367,19 +410,27 @@ export default function BaseAdvisor({ allPals, revealedPals, theme }) {
                                 <div style={{ fontSize: "1.1rem", fontWeight: "bold", marginBottom: "0.75rem", color: theme.text }}>
                                     Work Coverage Analysis
                                 </div>
-                                {Object.entries(recommendations.requiredWork).map(([workType, info]) => {
-                                    const coverage = recommendations.coverage[workType];
-                                    return (
-                                        <div key={workType} style={styles.coverageItem}>
-                                            <span>{workType} (needed by {info.count} structure{info.count > 1 ? 's' : ''})</span>
-                                            <span style={coverage.covered ? styles.covered : styles.notCovered}>
-                                                {coverage.covered 
-                                                    ? `✓ Covered (Lv.${coverage.level} - ${coverage.pals.length} pal${coverage.pals.length > 1 ? 's' : ''})` 
-                                                    : '✗ Not Covered'}
-                                            </span>
-                                        </div>
-                                    );
-                                })}
+                                {Object.keys(recommendations.requiredWork).length > 0 ? (
+                                    Object.entries(recommendations.requiredWork).map(([workType, info]) => {
+                                        const coverage = recommendations.coverage[workType];
+                                        return (
+                                            <div key={workType} style={styles.coverageItem}>
+                                                <span>{workType} (needed by {info.count} structure{info.count > 1 ? 's' : ''})</span>
+                                                <span style={coverage.covered ? styles.covered : styles.notCovered}>
+                                                    {coverage.covered 
+                                                        ? `✓ Covered (Lv.${coverage.level} - ${coverage.pals.length} pal${coverage.pals.length > 1 ? 's' : ''})` 
+                                                        : '✗ Not Covered'}
+                                                </span>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div style={{ textAlign: "center", padding: "1rem", color: theme.text }}>
+                                        {recommendations.hasNoWorkStructures 
+                                            ? "Selected structures don't require Pal work (e.g., Feed Box, Monitoring Stand). These are passive structures."
+                                            : "No work requirements to analyze."}
+                                    </div>
+                                )}
                             </div>
                         </>
                     ) : (
