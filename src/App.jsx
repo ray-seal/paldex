@@ -4,11 +4,13 @@ import PalCard from "./components/PalCard";
 import PalModal from "./components/PalModal";
 import BaseAdvisor from "./components/BaseAdvisor";
 import BattleAdvisor from "./components/BattleAdvisor";
+import Achievements from "./components/Achievements";
 
 const STORAGE_KEY = "revealedPals";
 const PALS_DATA_KEY = "customPals";
 const THEME_KEY = "selectedTheme";
 const ACTIVE_TAB_KEY = "activeTab";
+const DEFEATED_BOSSES_KEY = "defeatedBosses";
 
 // Theme colors based on types
 const themes = {
@@ -45,6 +47,7 @@ export default function App() {
     const [deferredPrompt, setDeferredPrompt] = useState(null);
     const [showInstallButton, setShowInstallButton] = useState(false);
     const [activeTab, setActiveTab] = useState("pokedex");
+    const [defeatedBosses, setDefeatedBosses] = useState([]);
 
     useEffect(() => {
         const handler = (e) => {
@@ -90,6 +93,11 @@ export default function App() {
         const storedTab = localStorage.getItem(ACTIVE_TAB_KEY);
         if (storedTab) {
             setActiveTab(storedTab);
+        }
+
+        const storedDefeatedBosses = localStorage.getItem(DEFEATED_BOSSES_KEY);
+        if (storedDefeatedBosses) {
+            setDefeatedBosses(JSON.parse(storedDefeatedBosses));
         }
     }, []);
 
@@ -199,6 +207,36 @@ export default function App() {
         return matchType && matchWork;
     });
 
+    // Calculate boss category stats for achievements
+    const BOSS_DATA = {
+        "Tower Boss": 5,
+        "Alpha Pal": 35,
+        "Legendary": 5,
+        "Raid Boss": 2
+    };
+
+    const bossCategories = {};
+    Object.keys(BOSS_DATA).forEach(category => {
+        bossCategories[category] = {
+            total: BOSS_DATA[category],
+            defeated: 0
+        };
+    });
+
+    // Count defeated bosses by category (this would ideally come from BattleAdvisor's BOSS_DATA)
+    // For now, we'll do a simple categorization based on boss names
+    defeatedBosses.forEach(bossName => {
+        if (bossName.includes("Tower") || bossName.includes("&")) {
+            bossCategories["Tower Boss"].defeated += 1;
+        } else if (bossName.includes("Legendary")) {
+            bossCategories["Legendary"].defeated += 1;
+        } else if (bossName.includes("Raid Boss") || bossName.includes("Bellanoir")) {
+            bossCategories["Raid Boss"].defeated += 1;
+        } else if (bossName.includes("Alpha") || bossName.includes("(Alpha)")) {
+            bossCategories["Alpha Pal"].defeated += 1;
+        }
+    });
+
     const currentTheme = themes[theme] || themes.default;
 
     return (
@@ -233,6 +271,15 @@ export default function App() {
                     onClick={() => setActiveTab("battle")}
                 >
                     Battle Advisor
+                </button>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "achievements" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("achievements")}
+                >
+                    Achievements
                 </button>
             </div>
 
@@ -381,10 +428,18 @@ export default function App() {
                     revealedPals={revealedPals}
                     theme={currentTheme}
                 />
-            ) : (
+            ) : activeTab === "battle" ? (
                 <BattleAdvisor 
                     allPals={allPals}
                     revealedPals={revealedPals}
+                    theme={currentTheme}
+                />
+            ) : (
+                <Achievements 
+                    revealedPals={revealedPals}
+                    totalPals={allPals.length}
+                    defeatedBosses={defeatedBosses}
+                    bossCategories={bossCategories}
                     theme={currentTheme}
                 />
             )}
