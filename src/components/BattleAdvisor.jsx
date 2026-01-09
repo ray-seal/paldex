@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const DEFEATED_BOSSES_KEY = "defeatedBosses";
+
 // Type effectiveness chart (attacker -> defender)
 // 2.0 = super effective, 1.0 = neutral, 0.5 = not very effective, 0.25 = barely effective
 const TYPE_EFFECTIVENESS = {
@@ -317,6 +319,35 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
     const [selectedBoss, setSelectedBoss] = useState("");
     const [teamSize, setTeamSize] = useState(5);
     const [recommendations, setRecommendations] = useState(null);
+    const [defeatedBosses, setDefeatedBosses] = useState([]);
+
+    // Load defeated bosses from localStorage
+    useEffect(() => {
+        const stored = localStorage.getItem(DEFEATED_BOSSES_KEY);
+        if (stored) {
+            setDefeatedBosses(JSON.parse(stored));
+        }
+    }, []);
+
+    // Save defeated bosses to localStorage
+    useEffect(() => {
+        localStorage.setItem(DEFEATED_BOSSES_KEY, JSON.stringify(defeatedBosses));
+    }, [defeatedBosses]);
+
+    const toggleBossDefeated = (bossName) => {
+        setDefeatedBosses(prev => 
+            prev.includes(bossName)
+                ? prev.filter(b => b !== bossName)
+                : [...prev, bossName]
+        );
+    };
+
+    const resetAllProgress = () => {
+        if (window.confirm("Are you sure you want to reset all boss completion progress?")) {
+            setDefeatedBosses([]);
+            localStorage.removeItem(DEFEATED_BOSSES_KEY);
+        }
+    };
 
     const parseWorkSuitability = (workString) => {
         if (!workString) return {};
@@ -440,6 +471,24 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
     useEffect(() => {
         calculateRecommendations();
     }, [selectedBoss, teamSize, revealedPals]);
+
+    // Calculate completion stats
+    const totalBosses = Object.keys(BOSS_DATA).length;
+    const defeatedCount = defeatedBosses.length;
+    const completionPercentage = Math.round((defeatedCount / totalBosses) * 100);
+
+    // Category stats
+    const categoryStats = {};
+    Object.entries(BOSS_DATA).forEach(([name, data]) => {
+        const category = data.category;
+        if (!categoryStats[category]) {
+            categoryStats[category] = { total: 0, defeated: 0 };
+        }
+        categoryStats[category].total += 1;
+        if (defeatedBosses.includes(name)) {
+            categoryStats[category].defeated += 1;
+        }
+    });
 
     const styles = {
         container: {
@@ -569,6 +618,100 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
             backgroundColor: "#6c757d",
             color: "white",
         },
+        statsSection: {
+            backgroundColor: theme.cardBg,
+            border: `2px solid ${theme.border}`,
+            borderRadius: "8px",
+            padding: "1.5rem",
+            marginBottom: "1.5rem",
+        },
+        statsGrid: {
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "1rem",
+            marginTop: "1rem",
+        },
+        statCard: {
+            backgroundColor: theme.bg,
+            border: `1px solid ${theme.border}`,
+            borderRadius: "6px",
+            padding: "1rem",
+            textAlign: "center",
+        },
+        statNumber: {
+            fontSize: "2rem",
+            fontWeight: "bold",
+            color: "#007bff",
+            marginBottom: "0.25rem",
+        },
+        statLabel: {
+            fontSize: "0.9rem",
+            color: theme.text,
+            fontWeight: "500",
+        },
+        progressBar: {
+            width: "100%",
+            height: "24px",
+            backgroundColor: "#e0e0e0",
+            borderRadius: "12px",
+            overflow: "hidden",
+            marginTop: "1rem",
+        },
+        progressFill: {
+            height: "100%",
+            backgroundColor: "#28a745",
+            transition: "width 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "0.85rem",
+        },
+        checkboxContainer: {
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.75rem",
+            backgroundColor: theme.bg,
+            borderRadius: "6px",
+            marginTop: "1rem",
+            border: `1px solid ${theme.border}`,
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+        },
+        checkbox: {
+            width: "20px",
+            height: "20px",
+            cursor: "pointer",
+        },
+        defeatedBadge: {
+            display: "inline-block",
+            padding: "0.25rem 0.5rem",
+            borderRadius: "4px",
+            fontSize: "0.75rem",
+            fontWeight: "bold",
+            backgroundColor: "#28a745",
+            color: "white",
+            marginLeft: "0.5rem",
+        },
+        resetButton: {
+            padding: "0.5rem 1rem",
+            backgroundColor: "#dc3545",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "0.9rem",
+            fontWeight: "bold",
+            marginTop: "1rem",
+        },
+        categoryStatRow: {
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0.5rem",
+            borderBottom: `1px solid ${theme.border}`,
+        },
     };
 
     return (
@@ -580,6 +723,35 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
             <div style={styles.infoBox}>
                 <strong>How to use:</strong> Select a boss you want to battle. The advisor will recommend 
                 the best team from your collected Pals based on type advantages and suggest appropriate levels.
+                Check off bosses as you defeat them to track your progress!
+            </div>
+
+            {/* Completion Stats */}
+            <div style={styles.statsSection}>
+                <div style={styles.sectionTitle}>Boss Completion Progress</div>
+                
+                <div style={styles.progressBar}>
+                    <div style={{ ...styles.progressFill, width: `${completionPercentage}%` }}>
+                        {completionPercentage > 10 ? `${completionPercentage}%` : ''}
+                    </div>
+                </div>
+
+                <div style={styles.statsGrid}>
+                    <div style={styles.statCard}>
+                        <div style={styles.statNumber}>{defeatedCount}/{totalBosses}</div>
+                        <div style={styles.statLabel}>Total Bosses Defeated</div>
+                    </div>
+                    {Object.entries(categoryStats).map(([category, stats]) => (
+                        <div key={category} style={styles.statCard}>
+                            <div style={styles.statNumber}>{stats.defeated}/{stats.total}</div>
+                            <div style={styles.statLabel}>{category}</div>
+                        </div>
+                    ))}
+                </div>
+
+                <button onClick={resetAllProgress} style={styles.resetButton}>
+                    Reset All Progress
+                </button>
             </div>
 
             {/* Boss Selection */}
@@ -654,7 +826,12 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
                         <div style={styles.bossInfo}>
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Boss:</span>
-                                <span>{selectedBoss}</span>
+                                <span>
+                                    {selectedBoss}
+                                    {defeatedBosses.includes(selectedBoss) && (
+                                        <span style={styles.defeatedBadge}>✓ DEFEATED</span>
+                                    )}
+                                </span>
                             </div>
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Category:</span>
@@ -679,6 +856,24 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
                             <div style={styles.bossInfoRow}>
                                 <span style={styles.label}>Location:</span>
                                 <span>{BOSS_DATA[selectedBoss].location}</span>
+                            </div>
+
+                            {/* Defeated Checkbox */}
+                            <div 
+                                style={styles.checkboxContainer}
+                                onClick={() => toggleBossDefeated(selectedBoss)}
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={defeatedBosses.includes(selectedBoss)}
+                                    onChange={() => {}}
+                                    style={styles.checkbox}
+                                />
+                                <span style={{ fontWeight: "bold", fontSize: "1rem" }}>
+                                    {defeatedBosses.includes(selectedBoss) 
+                                        ? "Mark as Not Defeated" 
+                                        : "Mark as Defeated"}
+                                </span>
                             </div>
                         </div>
                     )}
