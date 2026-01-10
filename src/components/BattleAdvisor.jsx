@@ -468,6 +468,9 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
             team: topTeam,
             allScores: palScores
         });
+
+        // Track that user has used the Battle Advisor feature for achievements
+        localStorage.setItem("used_battle_advisor", "true");
     };
 
     useEffect(() => {

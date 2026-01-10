@@ -183,6 +183,9 @@ export default function BaseAdvisor({ allPals, revealedPals, theme }) {
             requiredWork,
             hasNoWorkStructures
         });
+
+        // Track that user has used the Base Advisor feature for achievements
+        localStorage.setItem("used_base_advisor", "true");
     };
 
     useEffect(() => {
