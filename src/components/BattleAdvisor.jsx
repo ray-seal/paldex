@@ -315,6 +315,8 @@ const BOSS_DATA = {
     },
 };
 
+export { BOSS_DATA };
+
 export default function BattleAdvisor({ allPals, revealedPals, theme }) {
     const [selectedBoss, setSelectedBoss] = useState("");
     const [teamSize, setTeamSize] = useState(5);

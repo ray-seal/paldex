@@ -3,7 +3,7 @@ import pals from "./data/pals.json";
 import PalCard from "./components/PalCard";
 import PalModal from "./components/PalModal";
 import BaseAdvisor from "./components/BaseAdvisor";
-import BattleAdvisor from "./components/BattleAdvisor";
+import BattleAdvisor, { BOSS_DATA } from "./components/BattleAdvisor";
 import Achievements from "./components/Achievements";
 
 const STORAGE_KEY = "revealedPals";
@@ -208,7 +208,7 @@ export default function App() {
     });
 
     // Calculate boss category stats for achievements
-    const BOSS_DATA = {
+    const BOSS_CATEGORY_TOTALS = {
         "Tower Boss": 5,
         "Alpha Pal": 35,
         "Legendary": 5,
@@ -216,24 +216,20 @@ export default function App() {
     };
 
     const bossCategories = {};
-    Object.keys(BOSS_DATA).forEach(category => {
+    Object.keys(BOSS_CATEGORY_TOTALS).forEach(category => {
         bossCategories[category] = {
-            total: BOSS_DATA[category],
+            total: BOSS_CATEGORY_TOTALS[category],
             defeated: 0
         };
     });
 
-    // Count defeated bosses by category (this would ideally come from BattleAdvisor's BOSS_DATA)
-    // For now, we'll do a simple categorization based on boss names
+    // Count defeated bosses by category using actual boss data
     defeatedBosses.forEach(bossName => {
-        if (bossName.includes("Tower") || bossName.includes("&")) {
-            bossCategories["Tower Boss"].defeated += 1;
-        } else if (bossName.includes("Legendary")) {
-            bossCategories["Legendary"].defeated += 1;
-        } else if (bossName.includes("Raid Boss") || bossName.includes("Bellanoir")) {
-            bossCategories["Raid Boss"].defeated += 1;
-        } else if (bossName.includes("Alpha") || bossName.includes("(Alpha)")) {
-            bossCategories["Alpha Pal"].defeated += 1;
+        const bossData = BOSS_DATA[bossName];
+        if (bossData && bossData.category) {
+            if (bossCategories[bossData.category]) {
+                bossCategories[bossData.category].defeated += 1;
+            }
         }
     });
 
