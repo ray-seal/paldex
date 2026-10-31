@@ -76,12 +76,8 @@ export default function PalModal({ pal, onClose, theme, revealed, onAddToCollect
                     <p>HP {pal.stats.hp ?? "?"} · Attack {pal.stats.attack ?? "?"} · Defense {pal.stats.defense ?? "?"}</p>
                 </div>}
                 <div style={styles.section}>
-                    <strong>Work Suitability:</strong>
-                    <p>{rawWork || "None"}</p>
-                </div>
-                {pal.gives && pal.gives !== "Not listed" && <div style={styles.section}>
                     <strong>Gives:</strong>
-                    <p>{pal.gives}</p>
+                    <p>{pal.gives || "Not listed"}</p>
                 </div>
 
                 {!revealed && (
