@@ -42,11 +42,20 @@ export default function BreedingCalculator({ allPals, theme }) {
                     if (a.breedableAsChild) children=[a.gameId];
                 } else {
                     const rank=Math.floor((a.combiRank+b.combiRank+1)/2);
-                    let best=null, distance=Infinity;
-                    for (const child of childPool) {
-                        const d=Math.abs(child.combiRank-rank);
-                        if (d<distance) {best=child;distance=d;}
-                        else if (d>distance) break;
+                    let low=0, high=childPool.length;
+                    while (low<high) {
+                        const middle=Math.floor((low+high)/2);
+                        if (childPool[middle].combiRank<rank) low=middle+1;
+                        else high=middle;
+                    }
+                    let best=null;
+                    if (low===0) best=childPool[0]||null;
+                    else if (low===childPool.length) best=childPool[childPool.length-1]||null;
+                    else {
+                        const lower=childPool[low-1], upper=childPool[low];
+                        const lowerDistance=rank-lower.combiRank;
+                        const upperDistance=upper.combiRank-rank;
+                        best=upperDistance<lowerDistance?upper:lower;
                     }
                     if (best) children=[best.gameId];
                 }
