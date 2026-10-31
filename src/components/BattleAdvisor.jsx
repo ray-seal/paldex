@@ -317,27 +317,14 @@ const BOSS_DATA = {
 
 export { BOSS_DATA };
 
-export default function BattleAdvisor({ allPals, revealedPals, theme }) {
+export default function BattleAdvisor({ allPals, revealedPals, theme, defeatedBosses, onDefeatedBossesChange }) {
     const [selectedBoss, setSelectedBoss] = useState("");
     const [teamSize, setTeamSize] = useState(5);
     const [recommendations, setRecommendations] = useState(null);
-    const [defeatedBosses, setDefeatedBosses] = useState([]);
-
-    // Load defeated bosses from localStorage
-    useEffect(() => {
-        const stored = localStorage.getItem(DEFEATED_BOSSES_KEY);
-        if (stored) {
-            setDefeatedBosses(JSON.parse(stored));
-        }
-    }, []);
-
-    // Save defeated bosses to localStorage
-    useEffect(() => {
-        localStorage.setItem(DEFEATED_BOSSES_KEY, JSON.stringify(defeatedBosses));
-    }, [defeatedBosses]);
+    // Boss progress is owned by App and shared with Achievements.
 
     const toggleBossDefeated = (bossName) => {
-        setDefeatedBosses(prev => 
+        onDefeatedBossesChange(prev =>
             prev.includes(bossName)
                 ? prev.filter(b => b !== bossName)
                 : [...prev, bossName]
@@ -346,7 +333,7 @@ export default function BattleAdvisor({ allPals, revealedPals, theme }) {
 
     const resetAllProgress = () => {
         if (window.confirm("Are you sure you want to reset all boss completion progress?")) {
-            setDefeatedBosses([]);
+            onDefeatedBossesChange([]);
             localStorage.removeItem(DEFEATED_BOSSES_KEY);
         }
     };
