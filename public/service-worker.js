@@ -1,11 +1,13 @@
-const CACHE_NAME = 'pal-dex-v1';
+const CACHE_NAME = 'pal-dex-v2';
 const urlsToCache = [
   '/',
   '/index.html',
   '/src/main.jsx',
   '/src/App.jsx',
   '/src/index.css',
-  '/src/data/pals.json'
+  '/src/data/pals.json',
+  '/src/data/breeding.json',
+  '/src/components/BreedingCalculator.jsx'
 ];
 
 // Install service worker
