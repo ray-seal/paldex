@@ -27,6 +27,7 @@ const BASE_STRUCTURES = {
     "Primitive Sphere Assembly": { workTypes: ["Handiwork"], priority: 3 },
     "Sphere Assembly Line": { workTypes: ["Handiwork"], priority: 3 },
     "Advanced Sphere Assembly": { workTypes: ["Handiwork"], priority: 3 },
+    "Ancient Material Synthesizer": { workTypes: ["Handiwork"], priority: 3 },
     
     // Processing Structures
     "Crusher": { workTypes: ["Handiwork", "Transporting"], priority: 2 },
