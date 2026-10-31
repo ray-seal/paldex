@@ -80,9 +80,9 @@ export default function PalModal({ pal, onClose, theme, revealed, onAddToCollect
                     <p>{pal.gives || "Not listed"}</p>
                 </div>
 
-                {!revealed && (
-                    <button 
-                        onClick={onAddToCollection} 
+                {revealed ? null : (
+                    <button
+                        onClick={onAddToCollection}
                         style={styles.addButton}
                     >
                         Add to Collection
