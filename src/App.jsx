@@ -465,7 +465,7 @@ export default function App() {
             ) : (
                 <Achievements 
                     revealedPals={revealedPals}
-                    discoveredPalCount={allPals.filter(pal => revealedPals.includes(pal.name)).length}
+                    discoveredPalCount={allPals.filter(pal => pal.gameId && revealedPals.includes(pal.name)).length}
                     totalPals={pals.length}
                     defeatedBosses={defeatedBosses}
                     bossCategories={bossCategories}
