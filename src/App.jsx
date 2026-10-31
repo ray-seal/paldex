@@ -12,6 +12,7 @@ const PALS_DATA_KEY = "customPals";
 const THEME_KEY = "selectedTheme";
 const ACTIVE_TAB_KEY = "activeTab";
 const DEFEATED_BOSSES_KEY = "defeatedBosses";
+const LEGACY_PAL_NAMES = { "Fuark": "Fuack", "Fuark Ignis": "Fuack Ignis", "Special Flower Gumoss": "Gumoss", "Leezepunk Ignis": "Leezpunk Ignis", "Tantriss": "Tarantriss" };
 
 // Theme colors based on types
 const themes = {
@@ -78,7 +79,12 @@ export default function App() {
     useEffect(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
         if(stored) {
-            setRevealedPals(JSON.parse(stored));
+            const savedNames = JSON.parse(stored);
+            const migratedNames = [...new Set(savedNames.map(name => LEGACY_PAL_NAMES[name] || name))];
+            setRevealedPals(migratedNames);
+            if (migratedNames.length !== savedNames.length || migratedNames.some((name, index) => name !== savedNames[index])) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(migratedNames));
+            }
         }
 
         const storedPals = localStorage.getItem(PALS_DATA_KEY);
