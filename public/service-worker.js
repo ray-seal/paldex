@@ -1,53 +1,41 @@
 const CACHE_NAME = 'pal-dex-v2';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/src/main.jsx',
-  '/src/App.jsx',
-  '/src/index.css',
-  '/src/data/pals.json',
-  '/src/data/breeding.json',
-  '/src/components/BreedingCalculator.jsx'
-];
+const APP_SHELL = ['/', '/index.html'];
 
-// Install service worker
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Fetch from cache
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
-  );
-});
-
-// Update service worker
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
+    caches.keys()
+      .then(names => Promise.all(
+        names.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
+      ))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+
+  event.respondWith(
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+      return fetch(request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+        }
+        return response;
+      }).catch(() => {
+        if (request.mode === 'navigate') return caches.match('/index.html');
+        throw new Error('Offline and this resource is not cached');
+      });
     })
   );
 });
