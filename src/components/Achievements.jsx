@@ -153,13 +153,13 @@ const ACHIEVEMENTS = [
     },
 ];
 
-export default function Achievements({ revealedPals, totalPals, defeatedBosses, bossCategories, theme }) {
+export default function Achievements({ revealedPals, discoveredPalCount, totalPals, defeatedBosses, bossCategories, theme }) {
     const [unlockedAchievements, setUnlockedAchievements] = useState([]);
     const [filter, setFilter] = useState("All");
 
     useEffect(() => {
         checkAchievements();
-    }, [revealedPals, defeatedBosses]);
+    }, [revealedPals, discoveredPalCount, totalPals, defeatedBosses, bossCategories]);
 
     const checkAchievements = () => {
         const unlocked = [];
@@ -171,9 +171,9 @@ export default function Achievements({ revealedPals, totalPals, defeatedBosses, 
                 case "pals_discovered":
                     if (achievement.requirement.count === 999) {
                         // Special case: all pals
-                        isUnlocked = revealedPals.length === totalPals;
+                        isUnlocked = discoveredPalCount === totalPals;
                     } else {
-                        isUnlocked = revealedPals.length >= achievement.requirement.count;
+                        isUnlocked = discoveredPalCount >= achievement.requirement.count;
                     }
                     break;
 
