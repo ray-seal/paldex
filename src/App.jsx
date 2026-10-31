@@ -273,20 +273,20 @@ export default function App() {
                 <button
                     style={{
                         ...styles.tab,
-                        ...(activeTab === "battle" ? styles.activeTab : styles.inactiveTab)
-                    }}
-                    onClick={() => setActiveTab("battle")}
-                >
-                    Battle Advisor
-                </button>
-                <button
-                    style={{
-                        ...styles.tab,
                         ...(activeTab === "breeding" ? styles.activeTab : styles.inactiveTab)
                     }}
                     onClick={() => setActiveTab("breeding")}
                 >
                     Breeding Lab
+                </button>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "battle" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("battle")}
+                >
+                    Battle Advisor
                 </button>
                 <button
                     style={{
@@ -500,7 +500,10 @@ const styles = {
         padding: "0.5rem",
     },
     tab: {
-        padding: "0.75rem 1.5rem",
+        flex: "1 1 28%",
+        maxWidth: "260px",
+        minWidth: "125px",
+        padding: "0.75rem 1rem",
         fontSize: "1rem",
         fontWeight: "bold",
         border: "none",
