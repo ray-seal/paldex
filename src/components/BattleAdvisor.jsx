@@ -313,6 +313,62 @@ const BOSS_DATA = {
         region: "Summoned via Slab",
         category: "Raid Boss"
     },
+    "Saya & Selyne": {
+        types: ["Dark", "Neutral"],
+        level: 55,
+        location: "Moonflower Tower",
+        region: "Sakurajima",
+        category: "Tower Boss"
+    },
+    "Bjorn & Bastigor": {
+        types: ["Ice"],
+        level: 60,
+        location: "Feybreak Tower",
+        region: "Feybreak",
+        category: "Tower Boss"
+    },
+    "Auri & Shaolong": {
+        types: ["Water", "Dragon"],
+        level: 68,
+        location: "Azure Covenant Tower",
+        region: "Sunreach",
+        category: "Tower Boss"
+    },
+    "Zenara & Astralym": {
+        types: [],
+        level: 80,
+        location: "World Tree",
+        region: "World Tree",
+        category: "Tower Boss"
+    },
+    "Blazamut Ryu (Raid Boss)": {
+        types: ["Fire", "Dragon"],
+        level: 55,
+        location: "Raid Altar",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
+    "Xenolord (Raid Boss)": {
+        types: ["Dark", "Dragon"],
+        level: 65,
+        location: "Raid Altar",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
+    "Hartalis (Raid Boss)": {
+        types: ["Neutral"],
+        level: 70,
+        location: "Raid Altar",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
+    "Moon Lord (Raid Boss)": {
+        types: [],
+        level: 80,
+        location: "Celestial Sigil",
+        region: "Summoned via Slab",
+        category: "Raid Boss"
+    },
 };
 
 export { BOSS_DATA };
