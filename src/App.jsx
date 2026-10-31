@@ -5,6 +5,7 @@ import PalModal from "./components/PalModal";
 import BaseAdvisor from "./components/BaseAdvisor";
 import BattleAdvisor, { BOSS_DATA } from "./components/BattleAdvisor";
 import Achievements from "./components/Achievements";
+import BreedingCalculator from "./components/BreedingCalculator";
 
 const STORAGE_KEY = "revealedPals";
 const PALS_DATA_KEY = "customPals";
@@ -271,6 +272,15 @@ export default function App() {
                 <button
                     style={{
                         ...styles.tab,
+                        ...(activeTab === "breeding" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("breeding")}
+                >
+                    Breeding Lab
+                </button>
+                <button
+                    style={{
+                        ...styles.tab,
                         ...(activeTab === "achievements" ? styles.activeTab : styles.inactiveTab)
                     }}
                     onClick={() => setActiveTab("achievements")}
@@ -438,6 +448,8 @@ export default function App() {
                     revealedPals={revealedPals}
                     theme={currentTheme}
                 />
+            ) : activeTab === "breeding" ? (
+                <BreedingCalculator allPals={allPals} theme={currentTheme} />
             ) : (
                 <Achievements 
                     revealedPals={revealedPals}
