@@ -159,7 +159,7 @@ export default function Achievements({ revealedPals, totalPals, defeatedBosses, 
 
     useEffect(() => {
         checkAchievements();
-    }, [revealedPals, defeatedBosses]);
+    }, [revealedPals, totalPals, defeatedBosses, bossCategories]);
 
     const checkAchievements = () => {
         const unlocked = [];

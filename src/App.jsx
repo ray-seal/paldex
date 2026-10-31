@@ -5,6 +5,7 @@ import PalModal from "./components/PalModal";
 import BaseAdvisor from "./components/BaseAdvisor";
 import BattleAdvisor, { BOSS_DATA } from "./components/BattleAdvisor";
 import Achievements from "./components/Achievements";
+import BreedingCalculator from "./components/BreedingCalculator";
 
 const STORAGE_KEY = "revealedPals";
 const PALS_DATA_KEY = "customPals";
@@ -112,6 +113,10 @@ export default function App() {
     useEffect(() => {
         localStorage.setItem(ACTIVE_TAB_KEY, activeTab);
     }, [activeTab]);
+
+    useEffect(() => {
+        localStorage.setItem(DEFEATED_BOSSES_KEY, JSON.stringify(defeatedBosses));
+    }, [defeatedBosses]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -267,6 +272,15 @@ export default function App() {
                     onClick={() => setActiveTab("battle")}
                 >
                     Battle Advisor
+                </button>
+                <button
+                    style={{
+                        ...styles.tab,
+                        ...(activeTab === "breeding" ? styles.activeTab : styles.inactiveTab)
+                    }}
+                    onClick={() => setActiveTab("breeding")}
+                >
+                    Breeding Lab
                 </button>
                 <button
                     style={{
@@ -437,7 +451,11 @@ export default function App() {
                     allPals={allPals}
                     revealedPals={revealedPals}
                     theme={currentTheme}
+                    defeatedBosses={defeatedBosses}
+                    onDefeatedBossesChange={setDefeatedBosses}
                 />
+            ) : activeTab === "breeding" ? (
+                <BreedingCalculator allPals={allPals} theme={currentTheme} />
             ) : (
                 <Achievements 
                     revealedPals={revealedPals}
