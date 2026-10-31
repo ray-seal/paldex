@@ -216,14 +216,14 @@ export default function App() {
         }
 
         return matchType && matchWork;
-    });
+    }).sort((a, b) => String(a.paldeck || a.id).localeCompare(String(b.paldeck || b.id), undefined, { numeric: true }));
 
     // Calculate boss category stats for achievements
     const BOSS_CATEGORY_TOTALS = {
-        "Tower Boss": 5,
-        "Alpha Pal": 35,
+        "Tower Boss": 9,
+        "Alpha Pal": 28,
         "Legendary": 5,
-        "Raid Boss": 2
+        "Raid Boss": 6
     };
 
     const bossCategories = {};
