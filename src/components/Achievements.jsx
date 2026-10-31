@@ -64,10 +64,10 @@ const ACHIEVEMENTS = [
     {
         id: "tower_conqueror",
         name: "Tower Conqueror",
-        description: "Defeat all 5 Tower Bosses",
+        description: "Defeat all 9 Tower Bosses",
         icon: "🏆",
         category: "Combat",
-        requirement: { type: "category_defeated", category: "Tower Boss", count: 5 }
+        requirement: { type: "category_defeated", category: "Tower Boss", count: 9 }
     },
     {
         id: "alpha_hunter",
@@ -112,10 +112,10 @@ const ACHIEVEMENTS = [
     {
         id: "raid_master",
         name: "Raid Master",
-        description: "Defeat all Raid Bosses",
+        description: "Defeat all 6 tracked Raid Bosses",
         icon: "🔥",
         category: "Combat",
-        requirement: { type: "category_defeated", category: "Raid Boss", count: 2 }
+        requirement: { type: "category_defeated", category: "Raid Boss", count: 6 }
     },
     {
         id: "boss_hunter",
@@ -128,10 +128,10 @@ const ACHIEVEMENTS = [
     {
         id: "boss_master",
         name: "Boss Master",
-        description: "Defeat all 47 bosses in the game",
+        description: "Defeat all 48 bosses currently tracked in Pal-Deck",
         icon: "🎖️",
         category: "Combat",
-        requirement: { type: "bosses_defeated", count: 47 }
+        requirement: { type: "bosses_defeated", count: 48 }
     },
 
     // Exploration Achievements (examples you can customize)
