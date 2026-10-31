@@ -38,6 +38,7 @@ export default function BreedingCalculator({ allPals, theme }) {
                 const specials=specialByPair.get(key) || [];
                 let children=[];
                 if (specials.length) children=[...new Set(specials.map(x=>x.child))];
+                else if (!a.breedableAsParent || !b.breedableAsParent) children=[];
                 else if (a.gameId===b.gameId) {
                     if (a.breedableAsChild) children=[a.gameId];
                 } else {
