@@ -25,6 +25,7 @@ export default function PalModal({ pal, onClose, theme, revealed, onAddToCollect
                     {pal.name}
                     {!revealed && <span style={styles.badge}> 🔒</span>}
                 </h2>
+                {pal.paldeck && <p style={{ textAlign: "center", marginTop: "-0.5rem" }}>Paldeck #{pal.paldeck}</p>}
 
                 {!revealed && (
                     <div style={styles.collectionStatus}>
@@ -45,9 +46,17 @@ export default function PalModal({ pal, onClose, theme, revealed, onAddToCollect
                         ))}
                     </ul>
                 </div>
+                {pal.stats && <div style={styles.section}>
+                    <strong>Base Stats:</strong>
+                    <p>HP {pal.stats.hp ?? "?"} · Attack {pal.stats.attack ?? "?"} · Defense {pal.stats.defense ?? "?"}</p>
+                </div>}
                 <div style={styles.section}>
+                    <strong>Work Suitability:</strong>
+                    <p>{rawWork || "None"}</p>
+                </div>
+                {pal.gives && pal.gives !== "Not listed" && <div style={styles.section}>
                     <strong>Gives:</strong>
-                    <p>{pal.gives ?? "N/A"}</p>
+                    <p>{pal.gives}</p>
                 </div>
 
                 {!revealed && (
