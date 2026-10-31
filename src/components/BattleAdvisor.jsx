@@ -5,15 +5,15 @@ const DEFEATED_BOSSES_KEY = "defeatedBosses";
 // Type effectiveness chart (attacker -> defender)
 // 2.0 = super effective, 1.0 = neutral, 0.5 = not very effective, 0.25 = barely effective
 const TYPE_EFFECTIVENESS = {
-    Fire: { Grass: 2.0, Ice: 2.0, Water: 0.5, Ground: 0.5, Fire: 0.5, Dragon: 0.5 },
-    Water: { Fire: 2.0, Ground: 2.0, Water: 0.5, Grass: 0.5, Dragon: 0.5 },
-    Grass: { Water: 2.0, Ground: 2.0, Fire: 0.5, Grass: 0.5 },
-    Electric: { Water: 2.0, Electric: 0.5, Ground: 0.25, Dragon: 0.5 },
-    Ice: { Grass: 2.0, Ground: 2.0, Dragon: 2.0, Fire: 0.5, Water: 0.5, Ice: 0.5 },
-    Ground: { Fire: 2.0, Electric: 2.0, Grass: 0.5, Water: 0.5 },
-    Dark: { Dark: 2.0, Neutral: 1.0 },
-    Dragon: { Dragon: 2.0, Ice: 0.5 },
-    Neutral: { Dark: 0.5 }
+    Neutral: {},
+    Fire: { Grass: 2.0, Ice: 2.0, Water: 0.5, Fire: 0.5 },
+    Water: { Fire: 2.0, Water: 0.5, Electric: 0.5 },
+    Grass: { Ground: 2.0, Grass: 0.5, Fire: 0.5 },
+    Electric: { Water: 2.0, Electric: 0.5, Ground: 0.5 },
+    Ice: { Dragon: 2.0, Ice: 0.5, Fire: 0.5 },
+    Ground: { Electric: 2.0, Ground: 0.5, Grass: 0.5 },
+    Dark: { Neutral: 2.0, Dark: 0.5, Dragon: 0.5 },
+    Dragon: { Dark: 2.0, Dragon: 0.5, Ice: 0.5 }
 };
 
 // Boss data with types, recommended levels, and locations
