@@ -27,6 +27,7 @@ export default function PalCard({ pal, revealed, onClick, theme }) {
                     {pal.name}
                     {!revealed && <span style={styles.badge}> 🔒</span>}
                 </div>
+                {pal.paldeck && <div style={{ ...styles.type, fontWeight: "bold" }}>#{pal.paldeck}</div>}
                 <div style={styles.type}>{typeof pal.type === 'string' ? pal.type : pal.type?.join(', ')}</div>
         </div>
     );
