@@ -15,10 +15,6 @@ export default function BreedingCalculator({ allPals, theme }) {
 
     const pals = useMemo(() => allPals.filter(p => p.gameId && Number.isFinite(p.combiRank)), [allPals]);
     const byGameId = useMemo(() => new Map(pals.map(p => [p.gameId, p])), [pals]);
-    const parentPool = useMemo(() => pals.filter(p => p.breedableAsParent), [pals]);
-    const childPool = useMemo(() => pals.filter(p => p.breedableAsChild).sort((a,b) =>
-        a.combiRank - b.combiRank || (a.breedOrder ?? 999999999) - (b.breedOrder ?? 999999999) || a.gameId.localeCompare(b.gameId)
-    ), [pals]);
     const specialByPair = useMemo(() => {
         const map = new Map();
         breedingData.specialCombos.forEach(combo => {
@@ -28,6 +24,11 @@ export default function BreedingCalculator({ allPals, theme }) {
         });
         return map;
     }, []);
+    const specialParentIds = useMemo(() => new Set(breedingData.specialCombos.flatMap(combo => combo.parents)), []);
+    const parentPool = useMemo(() => pals.filter(p => p.breedableAsParent || specialParentIds.has(p.gameId)), [pals, specialParentIds]);
+    const childPool = useMemo(() => pals.filter(p => p.breedableAsChild).sort((a,b) =>
+        a.combiRank - b.combiRank || (a.breedOrder ?? 999999999) - (b.breedOrder ?? 999999999) || a.gameId.localeCompare(b.gameId)
+    ), [pals]);
     const outcomes = useMemo(() => {
         const map = new Map();
         for (let i=0; i<parentPool.length; i++) {
@@ -52,6 +53,9 @@ export default function BreedingCalculator({ allPals, theme }) {
                 if(children.length) map.set(key,children);
             }
         }
+        // Some special-combo parents are intentionally excluded from the normal
+        // breeding pool, but their explicit recipes remain valid.
+        specialByPair.forEach((combos,key) => map.set(key,[...new Set(combos.map(combo=>combo.child))]));
         return map;
     }, [parentPool, childPool, specialByPair]);
 
