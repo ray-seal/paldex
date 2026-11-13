@@ -25,10 +25,13 @@ export default function BreedingCalculator({ allPals, theme }) {
         return map;
     }, []);
     const specialParentIds = useMemo(() => new Set(breedingData.specialCombos.flatMap(combo => combo.parents)), []);
+    const specialChildIds = useMemo(() => new Set(breedingData.specialCombos.map(combo => combo.child)), []);
     const parentPool = useMemo(() => pals.filter(p => p.breedableAsParent || specialParentIds.has(p.gameId)), [pals, specialParentIds]);
-    const childPool = useMemo(() => pals.filter(p => p.breedableAsChild).sort((a,b) =>
+    // Palworld 1.0.5 excludes every unique-recipe child from the ordinary rank pool.
+    // This leaves the 184-species pool used by the game's normal breeding selector.
+    const childPool = useMemo(() => pals.filter(p => p.breedableAsChild && !specialChildIds.has(p.gameId)).sort((a,b) =>
         a.combiRank - b.combiRank || (a.breedOrder ?? 999999999) - (b.breedOrder ?? 999999999) || a.gameId.localeCompare(b.gameId)
-    ), [pals]);
+    ), [pals, specialChildIds]);
     const outcomes = useMemo(() => {
         const map = new Map();
         for (let i=0; i<parentPool.length; i++) {
