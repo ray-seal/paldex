@@ -56,7 +56,7 @@ export default function BreedingCalculator({ allPals, theme }) {
                         const lower=childPool[low-1], upper=childPool[low];
                         const lowerDistance=rank-lower.combiRank;
                         const upperDistance=upper.combiRank-rank;
-                        best=upperDistance<lowerDistance?upper:lower;
+                        best=upperDistance<=lowerDistance?upper:lower;
                     }
                     if (best) children=[best.gameId];
                 }
