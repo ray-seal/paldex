@@ -131,7 +131,7 @@ export default function BreedingCalculator({ allPals, theme }) {
                 <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:8}}>{partnerRows.map(row=><div key={row.partner} style={{padding:12,borderRadius:8,background:theme.bg,border:"1px solid "+theme.border}}><strong>{name(explore)} + {name(row.partner)}</strong><div style={{marginTop:6}}>{row.children.map(name).join(" / ")}</div></div>)}</div>
             </>}
         </section>}
-        <p style={muted}>Game-data snapshot: Palworld 1.0.3 (13 September 2026 extraction). This dataset has not yet been re-extracted from 1.0.5 game files, so treat it as a versioned snapshot and verify surprising results in-game. Mutations, passive inheritance and egg odds are separate mechanics and are not simulated here. Gender-specific special breeding outcomes are included.</p>
-        <p style={muted}>Breeding data source: AlbertoJALJ/palworld, extracted from the game's Pal and unique-combination tables. <a href="https://github.com/AlbertoJALJ/palworld" target="_blank" rel="noreferrer">Source and methodology</a>.</p>
+        <p style={muted}>Game-data snapshot: Palworld 1.0.5, Steam build 25247047 (15 September 2026 extraction). The ordinary breeding pool excludes unique-recipe children, and exact rank ties are resolved using the higher-priority candidate. Mutations, passive inheritance and egg odds are separate mechanics and are not simulated here. Gender-specific special breeding outcomes are included.</p>
+        <p style={muted}>Breeding data source: Awy64/palworld-atlas-data, native Pal and unique-combination tables. <a href="https://github.com/Awy64/palworld-atlas-data" target="_blank" rel="noreferrer">Source and extraction methodology</a>.</p>
     </div>;
 }
